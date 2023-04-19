@@ -1,10 +1,10 @@
 import style from './ButtonSearch.module.css';
+import Search from '../../assets/icons/Search';
 import React from 'react';
-import { SearchIcon } from '../../assets/icons/SearchIcon';
 
 export function ButtonSearch(props){
 
     return(
-        <button className={style}>{SearchIcon}</button>
+        <button className={style}><Search/></button>
     )
 }
