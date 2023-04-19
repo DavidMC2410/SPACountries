@@ -39,12 +39,12 @@ const rootReducer = (state = initialState, action)=>{
         if (action.payload==="A-Z"){
             return{
                 ...state,
-                countries: state.countries.sort((a, b)=> a.name-b.name)
+                countries: state.countries.sort((a, b)=> a.name.toLowerCase()-b.name.toLowerCase())
             }
         }else{
             return{
                 ...state,
-                countries: state.countries.sort((a, b)=> b.name-a.name)
+                countries: state.countries.sort((a, b)=> b.name.toLowerCase()-a.name.toLowerCase())
             }
         }
         case ORDER_COUNTRIES_POPULATION: 
@@ -66,7 +66,15 @@ const rootReducer = (state = initialState, action)=>{
         }
         case FILTER_COUNTRIES_ACTIVITIES:return {
             ...state,
-            countries: state.countries.filter(country=>country.activities.name===action.payload)
+            countries: state.countries.filter(country=>{
+                let hasActivity = false;
+                for (const activity of country.activities) {
+                    if (activity.name===action.payload){
+                        hasActivity = true;
+                    }
+                }
+                return hasActivity;
+            })
         }
         default: return state;
     }
