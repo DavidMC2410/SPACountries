@@ -1,12 +1,11 @@
-import { SearchBar } from './SearchBar';
 import { Link } from 'react-router-dom';
+import React from 'react';
 
 export default function Nav (){
     return(
         <nav>
-            <SearchBar />
-            <Link to="/home">HOME</Link>
-            <Link to="/activityCreate">Actividades</Link>
+            <Link to="/home"><h1>Home</h1></Link>
+            <Link to="/activityCreate"><h1>Actividades</h1></Link>
         </nav>
     )
 }

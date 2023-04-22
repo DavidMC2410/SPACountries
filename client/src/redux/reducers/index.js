@@ -14,6 +14,7 @@ const initialState= {
     countries:[],
     countryDetail:{},
     activities:[],
+    countriesToDisplay:[],
 
 }
 

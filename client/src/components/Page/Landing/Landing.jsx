@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { Button } from '../../Atom/Button';
+import Button from '../../Atom/Button';
+import React from 'react';
 
 import style from './Landing.module.css'
 

@@ -8,7 +8,7 @@ export default function Card(props){
             <Link to={`/detail/${props.id}`}>
                 <div>
                     <h2>{props.name}</h2>
-                    <img src={props.flag} alt="flag_img" />
+                    <img src={props.img} alt="flag_img" />
                     <h3>{props.continent}</h3>
                 </div>
             </Link>

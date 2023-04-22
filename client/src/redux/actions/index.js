@@ -38,7 +38,7 @@ export const orderCountriesAZ = (order) => dispatch => {
 };
 
 export const getAllCountries =  () => async dispatch => {
-    return await axios.get(`/countries`)
+    return await axios.get(`http://localhost:3001/countries`)
     .then(({data}) => dispatch({
         type: GET_ALL_COUNTRIES,
         payload:data
@@ -46,7 +46,7 @@ export const getAllCountries =  () => async dispatch => {
 };
 
 export const getCountryByName = (name) => async dispatch => {
-    return await axios.get(`/countries?name=${name}`)
+    return await axios.get(`http://localhost:3001/countries?name=${name}`)
     .then(({data}) => dispatch({
         type: GET_COUNTRY_BY_NAME,
         payload:data
@@ -54,7 +54,7 @@ export const getCountryByName = (name) => async dispatch => {
 };
 
 export const getCountryDetail = (id) => async dispatch => {
-    return await axios.get(`/countries/${id}`)
+    return await axios.get(`http://localhost:3001/countries/${id}`)
     .then(({data}) => dispatch({
         type: GET_COUNTRY_DETAIL,
         payload:data
@@ -62,7 +62,7 @@ export const getCountryDetail = (id) => async dispatch => {
 };
 
 export const getActivities = () => async dispatch =>{
-    return await axios.get(`/activities`)
+    return await axios.get(`http://localhost:3001/activities`)
     .then(({data}) => dispatch({
         type: GET_ACTIVITIES,
         payload:data
