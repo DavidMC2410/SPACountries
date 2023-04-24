@@ -68,3 +68,4 @@ export const getActivities = () => async dispatch =>{
         payload:data
     }))
 };
+

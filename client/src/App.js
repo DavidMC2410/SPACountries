@@ -15,7 +15,7 @@ function App() {
 
       <Route exact path='/' element={<Landing/>} />
       <Route exact path='/home' element={<Home/>} />
-      <Route exact path='/CreatedActivity' element={<CreatedActivity/>} /> 
+      <Route exact path='/activityCreate' element={<CreatedActivity/>} /> 
       <Route exact path='/detail/:detailId' element={<DetailCard/>} />
       </Routes>
 

@@ -36,6 +36,7 @@ const rootReducer = (state = initialState, action)=>{
             ...state,
             activities:action.payload
         }
+
         case ORDER_COUNTRIES_AZ: 
         if (action.payload==="A-Z"){
             return{
