@@ -120,7 +120,7 @@ const getAllActivities = async () => {
     return resp;
 }
 
-const createActivity = async ({name, dificulty, duration, season, countries})=>{
+const createActivity = async ({name, difficulty, duration, season, countries})=>{
 
     if (!name){
         throw new Error ('Es obligatorio que la actividad tenga un nombre')
@@ -128,7 +128,7 @@ const createActivity = async ({name, dificulty, duration, season, countries})=>{
 
     const newActivity = {
         name: name,
-        dificulty: dificulty,
+        difficulty: difficulty,
         durationHours: duration,
         season: season
     }

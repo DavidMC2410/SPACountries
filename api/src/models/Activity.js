@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    dificulty:{
+    difficulty:{
         type: DataTypes.INTEGER,
         allowNull:false,
         validate:{
@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
         field: 'duration_hours',
     },
     season: {
-        type: DataTypes.ENUM('Verano', 'Otoño', 'Invierno', 'Primavera'),
+        type: DataTypes.ENUM('Spring', 'Summer', 'Autumn', 'Winter'),
         allowNull: false,
     }
   },{timestamps:false});

@@ -15,7 +15,7 @@ export default function FormActivity(){
 
     const [form, setForm]=useState({
         name:'',
-        dificulty:0,
+        difficulty:0,
         duration: 0,
         season:'',
         countries:[],
@@ -23,16 +23,17 @@ export default function FormActivity(){
 
     const [errors, setErrors]=useState({
         name:'',
-        dificulty:'',
+        difficulty:'',
         duration:''
     });
 
     const handleInputChange = (e)=>{
-        console.log('Esto es el inputChange: ', e.target);
-
+        
         const {name, value}=e.target
-        setErrors(validation(form))
-        setForm({...form, [name] : value});
+        const newForm = {...form, [name] : value}
+        setErrors(validation(newForm, name, errors))
+        setForm(newForm);
+        
         console.log(form);
         console.log(errors);
         
@@ -58,7 +59,7 @@ export default function FormActivity(){
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        if  ((Object.keys(errors).length === 0)&&(form.season!=='')&&(form.countries.length!==0)){
+        if  ((!errors.name)&&(!errors.difficulty)&&(!errors.duration)&&(form.season!=='')&&(form.countries.length!==0)){
             await axios.post('http://localhost:3001/activities',form)
             .then(({data})=>{alert(data.msg)})
             .catch(error => console.log(error))
@@ -78,15 +79,15 @@ export default function FormActivity(){
                 <Input onChange={handleInputChange} id="name" type="text" value={form.name}/>
                 {errors.name && <p>{errors.name}</p>}
 
-                <Label htmlFor='dificulty' text='Difficulty: ' />
-                <Input onChange={handleInputChange} id="dificulty" type="number" value={form.dificulty}/>
-                {errors.dificulty && <p>{errors.dificulty}</p>}
+                <Label htmlFor='difficulty' text='Difficulty: ' />
+                <Input onChange={handleInputChange} id="difficulty" type="number" value={form.difficulty}/>
+                {errors.difficulty && <p>{errors.difficulty}</p>}
 
                 <Label htmlFor='duration' text='Duration(hours): '/>
                 <Input onChange={handleInputChange} id="duration" type="number" value={form.duration}/>
                 {errors.duration && <p>{errors.duration}</p>}
 
-                <Label htmlFor='seson' text='Seson'/>
+                <Label htmlFor='seson' text='Seson: '/>
                 <Select id="seson" handle={handleSelectSeasonChange} options={seasons} size="5" multiple={false} />
                 <p>Opciones seleccionadas: {form.season}</p>
 
