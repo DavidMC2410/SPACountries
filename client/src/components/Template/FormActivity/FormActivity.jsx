@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import validation from './validation';
 import Input from '../../Atom/Input';
 import Label from '../../Atom/Label';
 import Select from '../../Atom/Select';
 import Button from '../../Atom/Button';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
+import { getAllCountries } from '../../../redux/actions';
 
 export default function FormActivity(){
 
+    let arrayCountries=[];
     const seasons = ['Spring', 'Summer', 'Autumn', 'Winter'];
     let countries = useSelector(state => state.countries);
     let countriesName = countries.map(country=> country.name)
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(getAllCountries());
+    },[])
 
     const [form, setForm]=useState({
         name:'',
@@ -34,27 +40,22 @@ export default function FormActivity(){
         setErrors(validation(newForm, name, errors))
         setForm(newForm);
         
-        console.log(form);
-        console.log(errors);
-        
     }
 
     const handleSelectSeasonChange = (e)=>{
         setForm({...form, season: e.target.value})
-        console.log(form);
-        console.log(errors);
     }
 
     function handleSelectCountriesChange(event) {
-        const selectedValues = Array.from(event.target.selectedOptions, option => option.value);
+        //const selectedValues = Array.from(event.target.selectedOptions, option => option.value);
+        const selectedValues=[...arrayCountries, event.target.value]
+        console.log(event.target.value);
         const filterCountry = form.countries.find(country=>country===selectedValues[0]);
         if (filterCountry===undefined){
             setForm({...form, countries: [...form.countries, selectedValues[0]]});
         }else{
             setForm({...form, countries: form.countries.filter(c=>c!==selectedValues[0])});
         }
-        console.log(form);
-        console.log(errors);
       }
 
     const handleSubmit = async (e)=>{

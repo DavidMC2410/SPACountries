@@ -11,7 +11,7 @@ const dataContries = async ()=>{
     const arrayCountries = resp.data.map(country=>{
         const newCountry = {
             id: country.cca3,
-            name: country.translations.spa.common,
+            name: country.name.common,
             flag: country.flags[0],
             continent: country.continents[0],
             capital: !country.capital ? '' : country.capital.join(),

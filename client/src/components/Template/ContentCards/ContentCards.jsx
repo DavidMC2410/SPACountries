@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
-import {useDispatch, useSelector} from 'react-redux'
-import { getAllCountries } from '../../../redux/actions'
+
+import React,{useEffect} from 'react';
 import Card from '../../Organism/Card/Card';
+import { useSelector, useDispatch} from 'react-redux'
+import { getAllCountries } from '../../../redux/actions';
 
 export default function ContentCards(){
+    
     let dispatch = useDispatch();
     let countries = useSelector(state => state.countries);
 
     useEffect(()=>{
         dispatch(getAllCountries());
-    },[dispatch])
-    
+    },[])
 
     return (
     <div>
