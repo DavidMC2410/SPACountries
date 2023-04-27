@@ -51,6 +51,7 @@ export const getCountryByName = (name) => async dispatch => {
         type: GET_COUNTRY_BY_NAME,
         payload:data
     }))
+    .catch((error)=>{alert('No country was found')})
 };
 
 export const getCountryDetail = (id) => async dispatch => {

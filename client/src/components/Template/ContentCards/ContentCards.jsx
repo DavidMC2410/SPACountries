@@ -2,7 +2,7 @@
 import React,{useEffect} from 'react';
 import Card from '../../Organism/Card/Card';
 import { useSelector, useDispatch} from 'react-redux'
-import { getAllCountries } from '../../../redux/actions';
+import { getAllCountries, getActivities } from '../../../redux/actions';
 
 export default function ContentCards(){
     
@@ -11,6 +11,7 @@ export default function ContentCards(){
 
     useEffect(()=>{
         dispatch(getAllCountries());
+        dispatch(getActivities())
     },[])
 
     return (

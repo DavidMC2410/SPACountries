@@ -38,45 +38,73 @@ const rootReducer = (state = initialState, action)=>{
         }
 
         case ORDER_COUNTRIES_AZ: 
+        let auxStateAZ=[...state.countries];
+
+        auxStateAZ.sort((a, b)=> {
+            const auxA= a.name.toLowerCase()
+            const auxB= b.name.toLowerCase();
+            if (auxA<auxB) return -1;
+            if (auxA>auxB) return 1;
+            return 0;
+        })
+        
         if (action.payload==="A-Z"){
             return{
                 ...state,
-                countries: state.countries.sort((a, b)=> a.name.toLowerCase()-b.name.toLowerCase())
-            }
-        }else{
-            return{
-                ...state,
-                countries: state.countries.sort((a, b)=> b.name.toLowerCase()-a.name.toLowerCase())
+                countries: auxStateAZ
             }
         }
+        let auxStateAZReverse = auxStateAZ.reverse();
+        return {
+            ...state,
+            countries: auxStateAZReverse
+        }
+
         case ORDER_COUNTRIES_POPULATION: 
-        if (action.payload==="ascendent"){
+        let auxStatePopulation=[...state.countries];
+
+        auxStatePopulation.sort((a, b)=> {
+            if (a.population<b.population) return -1;
+            if (a.population>b.population) return 1;
+            return 0;
+        })
+        
+        if (action.payload==="Descending"){
             return{
                 ...state,
-                countries: state.countries.sort((a, b)=> a.population-b.population)
+                countries: auxStatePopulation
             }
-        }else{
-            return{
-                ...state,
-                countries: state.countries.sort((a, b)=> b.population-a.population)
-            }
+        }
+        let auxStatePopulationReverse = auxStatePopulation.reverse();
+        return {
+            ...state,
+            countries: auxStatePopulationReverse
         }
         
-        case FILTER_COUNTRIES_CONTINENT:return {
+        case FILTER_COUNTRIES_CONTINENT:
+            
+        let auxFilterContinent=state.countries.filter(country=>country.continent===action.payload)
+
+        return {
             ...state,
-            countries: state.countries.filter(country=>country.continent===action.payload)
+            countries:auxFilterContinent 
         }
-        case FILTER_COUNTRIES_ACTIVITIES:return {
-            ...state,
-            countries: state.countries.filter(country=>{
-                let hasActivity = false;
-                for (const activity of country.activities) {
-                    if (activity.name===action.payload){
-                        hasActivity = true;
-                    }
+
+        case FILTER_COUNTRIES_ACTIVITIES:
+        
+        let auxFilterActivity=state.countries.filter(country=>{
+            let hasActivity = false;
+            for (const activity of country.activities) {
+                if (activity.name===action.payload){
+                    hasActivity = true;
                 }
-                return hasActivity;
-            })
+            }
+            return hasActivity;
+        })
+        
+        return {
+            ...state,
+            countries: auxFilterActivity
         }
         default: return state;
     }

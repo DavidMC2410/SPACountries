@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import Search from '../../Organism/Search/Search';
+import Bar from '../../Molecule/Bar/Bar';
 import Select from '../../Atom/Select';
 import Button from '../../Atom/Button';
 import Label from '../../Atom/Label';
@@ -25,30 +24,42 @@ export default function MiddleBar(){
         "Oceania",
         "South America"
       ];
+    const arrayAlphabet=['A-Z','Z-A'];
+    const arrayPopulation=['Ascending','Descending']
     let activityName = activities.map(activity=> activity.name)
 
-    const handleSearchBarChange = (event)=>{
-        const { value } = event.target.value;
-        dispatch(getCountryByName(value));
+    const handleSearchBarChange = (value)=>{
+
+            dispatch(getCountryByName(value));   
+
     };
 
     const handleSelectAlphabetChange = (event)=>{
-        const {value} = event.target.value;
+        console.log(event);
+        const {value} = event.target;
+        console.log(value);
         dispatch(orderCountriesAZ(value))
     };
 
     const handleSelectPopulationChange = (event)=>{
-        const {value} = event.target.value;
+        const {value} = event.target;
+        console.log(value);
         dispatch(orderCountriesPopulation(value))
     };
 
     const handleSelectContinentChange = (event)=>{
-        const {value} = event.target.value;
+        
+        const {value} = event.target;
+        console.log(value);
+        
         dispatch(filterCountriesContinent(value))
     };
 
     const handleSelectActivityChange = (event)=>{
-        const {value} = event.target.value;
+        
+        const {value} = event.target;
+        console.log(value);
+        
         dispatch(filterCountriesActivities(value));
     };
 
@@ -59,28 +70,22 @@ export default function MiddleBar(){
     return(
     <div>
 
-        {/*<Label />
-        <Search />
+        <Label htmlfor='Bar' text='Search by Name' />
+        <Bar id='Bar' onClick={handleSearchBarChange}/>
 
-        <Label />
-        <Select />
+        <Label htmlfor='OrderAlphabet' text='Sort Alphabetically'/>
+        <Select size='2' multiple={false} options={arrayAlphabet} id='OrderAlphabet' handle={handleSelectAlphabetChange} />
 
-        <Label />
-        <Select />
+        <Label htmlfor='OrderPopulation' text='Sort by Population'/>
+        <Select size='2' multiple={false} options={arrayPopulation} id='OrderPopulation' handle={handleSelectPopulationChange} />
 
-        <Label />
-        <Select />
+        <Label htmlfor='FilterContinent' text='Filter by Continent'/>
+        <Select size='5' multiple={false} options={arrayContinent} id='FilterContinent' select={handleSelectContinentChange} />
 
-        <Label />
-        <Select />
+        <Label htmlfor='FilterActivity' text='Filter by Activity'/>
+        <Select size='5' multiple={false} options={activityName} id='FilterActivity' select={handleSelectActivityChange}/>
 
-        <Label />
-        <Select />
-
-        <Label />
-        <Select />
-
-    <Button />*/}
+        <Button text='Reset' onClick={handleResetChange}/>
 
     </div>)
 }
