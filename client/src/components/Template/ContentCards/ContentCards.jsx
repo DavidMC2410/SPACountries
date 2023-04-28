@@ -8,38 +8,39 @@ import style from './ContentCards.module.css';
 
 export default function ContentCards(){
     
-    let dispatch = useDispatch();
-    let allCountries = useSelector(state => state.countries);
+  let dispatch = useDispatch();
+  let allCountries = useSelector(state => state.countries);
 
-    useEffect(()=>{
-        dispatch(getAllCountries());
-        dispatch(getActivities())
-    },[])
+  useEffect(()=>{
+      dispatch(getAllCountries());
+      dispatch(getActivities())
+  },[])
 
-    const [pag, setPag]=useState(1);
+  const [pag, setPag]=useState(1);
 
-    const firstCard = (pag-1)* 10;
-    const lastCard = firstCard+10;
+  const firstCard = (pag-1)* 10;
+  const lastCard = firstCard+10;
 
-    let countries = allCountries.slice(firstCard,lastCard)
+  let countries = allCountries.slice(firstCard,lastCard)
 
     
-    const maxPag=Math.ceil(allCountries.length/10);
+  const maxPag=Math.ceil(allCountries.length/10);
 
-    const handlePrevPage = () => {
-        if (pag > 1) {
-          setPag(pag - 1);
-        }
-      };
+  const handlePrevPage = () => {
+    if (pag > 1) {
+      setPag(pag - 1);
+    }
+    };
       
-      const handleNextPage = () => {
+  const handleNextPage = () => {
         if (pag < maxPag) {
           setPag(pag + 1);
         }
       };
 
-    return (
-    <div>
+  return (
+    <div className={style.container}>
+      <div className={style.cardsContainer}>
         {countries.map(country=>(<Card
         key={country.id}
         id={country.id}
@@ -47,14 +48,13 @@ export default function ContentCards(){
         name={country.name}
         continent={country.continent}
         />))}
+      </div>
 
-        {pag>1 &&<Button onClick={handlePrevPage} key='<' text='<'/>}
-
-        {Array.from({ length: maxPag }, (_, i) => i + 1).map((page) => (
-          <Button key={page} text={page} onClick={() => setPag(page)} style={page===pag ? style.buttonPagActive:style.buttonPag} />
-        ))}
-
-        {pag!==maxPag &&<Button onClick={handleNextPage} key='>' text='>' />}
+      <div className={style.pagContainer}>
+        {pag>1 &&<Button style={style.button} onClick={handlePrevPage} key='<' text='<'/>}
+        <p>{pag}/{maxPag}</p>
+        {pag!==maxPag &&<Button style={style.button} onClick={handleNextPage} key='>' text='>' />}
+      </div>
 
     </div>)
 }

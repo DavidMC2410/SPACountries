@@ -2,6 +2,7 @@ import React from 'react';
 import Input from '../../Atom/Input'
 import Button from '../../Atom/Button';
 import { useState } from 'react';
+import style from './Bar.module.css';
 
 export default function Bar (props){
     const [inputValue, setInputValue] = useState("");
@@ -13,10 +14,10 @@ export default function Bar (props){
     props.onClick(inputValue);
   }
     return(
-    <div>
+    <div className={style.container}>
 
-        <Input onChange={handleInputChange} id="Bar" type="text" value={inputValue}/>
-        <Button onClick={handleSearchClick} text='Search' key='Search'/>
+        <Input onChange={handleInputChange} style={props.styleInput} id="Bar" type="text" value={inputValue}/>
+        <Button onClick={handleSearchClick} style={props.styleButton} text='Search' key='Search'/>
         
         
     </div>)

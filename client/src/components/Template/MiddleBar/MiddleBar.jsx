@@ -9,7 +9,8 @@ import {
     orderCountriesPopulation, 
     orderCountriesAZ, 
     getCountryByName,  
-    getAllCountries} from '../../../redux/actions'
+    getAllCountries} from '../../../redux/actions';
+import style from './MiddleBar.module.css';
 
 export default function MiddleBar(){
     
@@ -35,31 +36,26 @@ export default function MiddleBar(){
     };
 
     const handleSelectAlphabetChange = (event)=>{
-        console.log(event);
+        event.preventDefault();
         const {value} = event.target;
-        console.log(value);
         dispatch(orderCountriesAZ(value))
     };
 
     const handleSelectPopulationChange = (event)=>{
+        event.preventDefault();
         const {value} = event.target;
-        console.log(value);
         dispatch(orderCountriesPopulation(value))
     };
 
     const handleSelectContinentChange = (event)=>{
-        
+        event.preventDefault();
         const {value} = event.target;
-        console.log(value);
-        
         dispatch(filterCountriesContinent(value))
     };
 
     const handleSelectActivityChange = (event)=>{
-        
+        event.preventDefault();
         const {value} = event.target;
-        console.log(value);
-        
         dispatch(filterCountriesActivities(value));
     };
 
@@ -68,24 +64,36 @@ export default function MiddleBar(){
     }
 
     return(
-    <div>
+    <div className={style.container} >
 
-        <Label htmlfor='Bar' text='Search by Name' />
-        <Bar id='Bar' onClick={handleSearchBarChange}/>
+        <div className={style.element}>
+            <Label style={style.label} htmlfor='Bar' text='Search by Name ' />
+            <Bar styleButton={style.inputButton} styleInput={style.inputBar} id='Bar' onClick={handleSearchBarChange}/>
+        </div>
 
-        <Label htmlfor='OrderAlphabet' text='Sort Alphabetically'/>
-        <Select size='2' multiple={false} options={arrayAlphabet} id='OrderAlphabet' handle={handleSelectAlphabetChange} />
+        <div className={style.element}>
+            <Label style={style.label} htmlfor='OrderAlphabet' text='Sort Alphabetically '/>
+            <Select styleOption={style.selectOption} style={style.select} size='1' multiple={false} options={arrayAlphabet} id='OrderAlphabet' select={handleSelectAlphabetChange} />
+        </div>
 
-        <Label htmlfor='OrderPopulation' text='Sort by Population'/>
-        <Select size='2' multiple={false} options={arrayPopulation} id='OrderPopulation' handle={handleSelectPopulationChange} />
+        <div className={style.element}>
+          <Label style={style.label} htmlfor='OrderPopulation' text='Sort by Population '/>
+          <Select style={style.select} size='1' multiple={false} options={arrayPopulation} id='OrderPopulation' select={handleSelectPopulationChange} />
+        </div>
 
-        <Label htmlfor='FilterContinent' text='Filter by Continent'/>
-        <Select size='5' multiple={false} options={arrayContinent} id='FilterContinent' select={handleSelectContinentChange} />
+        <div className={style.element}>
+           <Label style={style.label} htmlfor='FilterContinent' text='Filter by Continent '/>
+           <Select style={style.select} size='1' multiple={false} options={arrayContinent} id='FilterContinent' select={handleSelectContinentChange} />
+        </div>
 
-        <Label htmlfor='FilterActivity' text='Filter by Activity'/>
-        <Select size='5' multiple={false} options={activityName} id='FilterActivity' select={handleSelectActivityChange}/>
+        <div className={style.element}>
+          <Label style={style.label} htmlfor='FilterActivity' text='Filter by Activity '/>
+           <Select style={style.select} size='1' multiple={false} options={activityName} id='FilterActivity' select={handleSelectActivityChange}/>
+        </div>
 
-        <Button text='Reset' key='Reset' onClick={handleResetChange}/>
+        <div className={style.element}>
+          <Button style={style.button} text='Reset' key='Reset' onClick={handleResetChange}/>
+        </div>
 
     </div>)
 }
