@@ -15,7 +15,7 @@ export default function Landing(){
 
             <p className={style.text}>Welcome to Hervels, your go-to destination for unforgettable travel experiences. Discover amazing destinations, find the best deals, and plan your dream vacation today.</p>
 
-            <Button style={style.button} text='Enter Now!!' onClick={() => navigate('/home')} />
+            <Button style={style.button} key='Enter Now!!' text='Enter Now!!' onClick={() => navigate('/home')} />
 
         </div>
     </div>)

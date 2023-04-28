@@ -16,7 +16,7 @@ export default function Bar (props){
     <div>
 
         <Input onChange={handleInputChange} id="Bar" type="text" value={inputValue}/>
-        <Button onClick={handleSearchClick} text='Search' />
+        <Button onClick={handleSearchClick} text='Search' key='Search'/>
         
         
     </div>)

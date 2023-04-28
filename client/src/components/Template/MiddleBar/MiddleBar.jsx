@@ -85,7 +85,7 @@ export default function MiddleBar(){
         <Label htmlfor='FilterActivity' text='Filter by Activity'/>
         <Select size='5' multiple={false} options={activityName} id='FilterActivity' select={handleSelectActivityChange}/>
 
-        <Button text='Reset' onClick={handleResetChange}/>
+        <Button text='Reset' key='Reset' onClick={handleResetChange}/>
 
     </div>)
 }

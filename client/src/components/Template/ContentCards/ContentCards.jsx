@@ -1,22 +1,45 @@
 
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
 import Card from '../../Organism/Card/Card';
 import { useSelector, useDispatch} from 'react-redux'
 import { getAllCountries, getActivities } from '../../../redux/actions';
+import Button from '../../Atom/Button';
+import style from './ContentCards.module.css';
 
 export default function ContentCards(){
     
     let dispatch = useDispatch();
-    let countries = useSelector(state => state.countries);
+    let allCountries = useSelector(state => state.countries);
 
     useEffect(()=>{
         dispatch(getAllCountries());
         dispatch(getActivities())
     },[])
 
+    const [pag, setPag]=useState(1);
+
+    const firstCard = (pag-1)* 10;
+    const lastCard = firstCard+10;
+
+    let countries = allCountries.slice(firstCard,lastCard)
+
+    
+    const maxPag=Math.ceil(allCountries.length/10);
+
+    const handlePrevPage = () => {
+        if (pag > 1) {
+          setPag(pag - 1);
+        }
+      };
+      
+      const handleNextPage = () => {
+        if (pag < maxPag) {
+          setPag(pag + 1);
+        }
+      };
+
     return (
     <div>
-        <h1>Y por ultimo, aqui deberia ir las cards</h1>
         {countries.map(country=>(<Card
         key={country.id}
         id={country.id}
@@ -24,5 +47,14 @@ export default function ContentCards(){
         name={country.name}
         continent={country.continent}
         />))}
+
+        {pag>1 &&<Button onClick={handlePrevPage} key='<' text='<'/>}
+
+        {Array.from({ length: maxPag }, (_, i) => i + 1).map((page) => (
+          <Button key={page} text={page} onClick={() => setPag(page)} style={page===pag ? style.buttonPagActive:style.buttonPag} />
+        ))}
+
+        {pag!==maxPag &&<Button onClick={handleNextPage} key='>' text='>' />}
+
     </div>)
 }

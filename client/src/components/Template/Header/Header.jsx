@@ -5,7 +5,6 @@ export default function Header(){
     return(
         <div>
             <Nav/>
-            <h1>Esto es el Header</h1>
         </div>
     );
 }

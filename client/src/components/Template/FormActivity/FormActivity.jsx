@@ -97,7 +97,7 @@ export default function FormActivity(){
                 <p>Opciones seleccionadas: {form.countries.join(', ')}</p>
                
 
-                <Button onClick={handleSubmit} text="Submit"/>
+                <Button onClick={handleSubmit} key="Submit" text="Submit"/>
 
             </form>
 
