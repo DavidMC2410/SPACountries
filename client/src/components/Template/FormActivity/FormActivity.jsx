@@ -8,8 +8,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
 import { getAllCountries } from '../../../redux/actions';
 import style from './FormActivity.module.css'
+import { useNavigate } from "react-router-dom";
 
 export default function FormActivity(){
+
+    const navigate = useNavigate()
 
     useEffect(()=>{
         dispatch(getAllCountries());
@@ -65,10 +68,10 @@ export default function FormActivity(){
         e.preventDefault();
         if  ((!errors.name)&&(!errors.difficulty)&&(!errors.duration)&&(form.season!=='')&&(form.countries.length!==0)){
             await axios.post('http://localhost:3001/activities',form)
-            .then(({data})=>{alert(data.msg)})
-            .catch(error => console.log(error))
+            .then(({data})=>{alert(data.msg);navigate('/home')})
+            .catch(error => {alert('404 not found '+error);navigate('/home')})
         }else{
-            alert('No se puede enviar')
+            alert('Please fill in all the fields of the form correctly')
         }
     }
 

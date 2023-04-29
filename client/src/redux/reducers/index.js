@@ -43,7 +43,7 @@ const rootReducer = (state = initialState, action)=>{
         }
 
         case ORDER_COUNTRIES_AZ: 
-            let auxStateAZ=[...state.countriesCache];
+            let auxStateAZ=[...state.countries];
 
             auxStateAZ.sort((a, b)=> {
                 const auxA= a.name.toLowerCase()
@@ -66,7 +66,7 @@ const rootReducer = (state = initialState, action)=>{
             }
 
         case ORDER_COUNTRIES_POPULATION: 
-            let auxStatePopulation=[...state.countriesCache];
+            let auxStatePopulation=[...state.countries];
 
             auxStatePopulation.sort((a, b)=> {
                 if (a.population<b.population) return -1;
@@ -91,7 +91,6 @@ const rootReducer = (state = initialState, action)=>{
         //let auxFilterContinent=[...state.countries.filter(country=>country.continent===action.payload)]
 
         let result = continent.slice().filter(country=> country.continent && country.continent.includes(action.payload))
-        console.log(result);
         return {
             ...state,
             countries:result

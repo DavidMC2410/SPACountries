@@ -28,11 +28,8 @@ router.get('/countries',async (req,res)=>{
 
 router.get('/countries/:idPais',async (req,res)=>{
     const idPais= req.params.idPais.toUpperCase();
-    console.log(idPais);
-    console.log(typeof(idPais));
+    
     try {
-        
-
         const countryById= await getCountryById(idPais)
         res.status(200).json(countryById)
     } catch (error) {

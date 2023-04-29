@@ -147,10 +147,7 @@ const createActivity = async ({name, difficulty, duration, season, countries})=>
     
     
     await Promise.all(countryPromises);
-
-    
-
-    const message=`Se creo la actividad ${name}.`
+    const message=`The activity ${name} was created.`
     return message;
 
 }
