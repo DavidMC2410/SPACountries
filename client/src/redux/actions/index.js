@@ -8,6 +8,7 @@ export const ORDER_COUNTRIES_AZ = "ORDER_COUNTRIES_AZ";
 export const ORDER_COUNTRIES_POPULATION = "ORDER_COUNTRIES_POPULATION";
 export const FILTER_COUNTRIES_CONTINENT = "FILTER_COUNTRIES_CONTINENT";
 export const FILTER_COUNTRIES_ACTIVITIES = "FILTER_COUNTRIES_ACTIVITIES";
+export const RESET_COUNTRIES = "RESET_COUNTRIES"
 
 export const filterCountriesActivities = (filter) => dispatch => {
     dispatch({
@@ -70,3 +71,8 @@ export const getActivities = () => async dispatch =>{
     }))
 };
 
+export const resetCountries = () => dispatch =>{
+    dispatch ({
+        type: RESET_COUNTRIES,
+    })
+}

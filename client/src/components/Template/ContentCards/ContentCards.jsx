@@ -51,9 +51,9 @@ export default function ContentCards(){
       </div>
 
       <div className={style.pagContainer}>
-        {pag>1 &&<Button style={style.button} onClick={handlePrevPage} key='<' text='<'/>}
-        <p>{pag}/{maxPag}</p>
-        {pag!==maxPag &&<Button style={style.button} onClick={handleNextPage} key='>' text='>' />}
+        {pag>1 &&<Button style={style.button} onClick={handlePrevPage} keyValue='<' text='<'/>}
+        <p className={style.p}>{pag}/{maxPag}</p>
+        {pag!==maxPag &&<Button style={style.button} onClick={handleNextPage} keyValue='>' text='>' />}
       </div>
 
     </div>)

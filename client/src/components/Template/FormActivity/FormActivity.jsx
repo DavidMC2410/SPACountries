@@ -7,17 +7,20 @@ import Button from '../../Atom/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
 import { getAllCountries } from '../../../redux/actions';
+import style from './FormActivity.module.css'
 
 export default function FormActivity(){
+
+    useEffect(()=>{
+        dispatch(getAllCountries());
+    },[])
 
     let arrayCountries=[];
     const seasons = ['Spring', 'Summer', 'Autumn', 'Winter'];
     let countries = useSelector(state => state.countries);
     let countriesName = countries.map(country=> country.name)
     const dispatch = useDispatch();
-    useEffect(()=>{
-        dispatch(getAllCountries());
-    },[])
+    
 
     const [form, setForm]=useState({
         name:'',
@@ -69,38 +72,44 @@ export default function FormActivity(){
         }
     }
 
-    
-
     return(
-        <div>
+        <form onSubmit={handleSubmit} className={style.container}>
 
-            <form onSubmit={handleSubmit}>
+            <div className={style.dataContainer}>
+                <div className={style.sectionContainer}>
+                    <Label style={style.label} htmlFor='name' text='Name Activity: '/>
+                    <Input style={style.input} onChange={handleInputChange} id="name" type="text" value={form.name}/>
+                    {errors.name && <p style={{backgroundColor: '#ffffcc', border: '1px solid #ff0000', padding: '10px', color: '#000'}}>{errors.name}</p>}
+                </div>
 
-                <Label htmlFor='name' text='Name Activity: '/>
-                <Input onChange={handleInputChange} id="name" type="text" value={form.name}/>
-                {errors.name && <p>{errors.name}</p>}
+                <div className={style.sectionContainer}>
+                    <Label style={style.label} htmlFor='difficulty' text='Difficulty: ' />
+                    <Input style={style.input} onChange={handleInputChange} id="difficulty" type="number" value={form.difficulty}/>
+                    {errors.difficulty && <p style={{backgroundColor: '#ffffcc', border: '1px solid #ff0000', padding: '10px', color: '#000'}}>{errors.difficulty}</p>}
+                </div>
 
-                <Label htmlFor='difficulty' text='Difficulty: ' />
-                <Input onChange={handleInputChange} id="difficulty" type="number" value={form.difficulty}/>
-                {errors.difficulty && <p>{errors.difficulty}</p>}
+                <div className={style.sectionContainer}>
+                    <Label style={style.label} htmlFor='duration' text='Duration(hours): '/>
+                    <Input style={style.input} onChange={handleInputChange} id="duration" type="number" value={form.duration}/>
+                    {errors.duration && <p style={{backgroundColor: '#ffffcc', border: '1px solid #ff0000', padding: '10px', color: '#000'}}>{errors.duration}</p>}
+                </div>
 
-                <Label htmlFor='duration' text='Duration(hours): '/>
-                <Input onChange={handleInputChange} id="duration" type="number" value={form.duration}/>
-                {errors.duration && <p>{errors.duration}</p>}
+                <div className={style.sectionContainer}>
+                    <Label style={style.label} htmlFor='seson' text='Seson: '/>
+                    <Select style={style.select} id="seson" select={handleSelectSeasonChange} arrayOptions={seasons} size="1" multiple={false} />
+                    <p>Selected option: {form.season}</p>
+                </div>
 
-                <Label htmlFor='seson' text='Seson: '/>
-                <Select id="seson" handle={handleSelectSeasonChange} options={seasons} size="5" multiple={false} />
-                <p>Opciones seleccionadas: {form.season}</p>
+                <div className={style.sectionContainer}>
+                    <Label style={style.label} htmlFor='countries' text='Country(ies): '/>
+                    <Select style={style.select} id='countries' arrayOptions={countriesName} select={handleSelectCountriesChange} size="1"  multiple={false}/>
+                    <p>Selected options: {form.countries.join(', ')}</p>
+                </div>
+            </div>
 
-                <Label htmlFor='countries' text='Country(ies): '/>
-                <Select id='countries' options={countriesName} handle={handleSelectCountriesChange} size="5"  multiple={true}/>
-                <p>Opciones seleccionadas: {form.countries.join(', ')}</p>
-               
-
-                <Button onClick={handleSubmit} key="Submit" text="Submit"/>
-
+            <div>
+                <Button style={style.button} onClick={handleSubmit} keyValue="Submit" text="Submit"/>
+            </div>
             </form>
-
-        </div>
     )
 }

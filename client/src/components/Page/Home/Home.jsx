@@ -7,8 +7,6 @@ import imageHome from '../../../assets/imageHeader/imageHomeNew.jpg';
 
 export default function Home (){
 
-    
-
     return(
     <div className={style.container}>
         <Header headerImg={imageHome} text={'Img Home Header'}/>

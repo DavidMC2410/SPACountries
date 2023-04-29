@@ -17,7 +17,7 @@ export default function Bar (props){
     <div className={style.container}>
 
         <Input onChange={handleInputChange} style={props.styleInput} id="Bar" type="text" value={inputValue}/>
-        <Button onClick={handleSearchClick} style={props.styleButton} text='Search' key='Search'/>
+        <Button onClick={handleSearchClick} style={props.styleButton} text='Search' keyValue='Search'/>
         
         
     </div>)

@@ -12,16 +12,23 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #ff910085;
-    font-size: 16px;
     line-height: 1.5;
 }
 
 .image{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     max-width: 100%;
     height: 72px;
 }
 
 .tittle{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-top: 0;
     color: rgb(0, 0, 0);
     font-size: 1rem;
@@ -31,6 +38,10 @@
 }
 
 .continent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     color: rgb(0, 0, 0);
     font-size: 1rem;
     border: 1px rgb(255, 255, 255);
