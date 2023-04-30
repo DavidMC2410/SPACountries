@@ -9,29 +9,29 @@ import {
     FILTER_COUNTRIES_ACTIVITIES,
     RESET_COUNTRIES
 } from '../actions';
+import functionOrder from '../functionOrder/functionOrder'
 
 const initialState= {
     countries:[],
     countryDetail:{},
     activities:[],
     countriesCache:[],
-    countriesReset:[],
     filteredCountriesByContinent:[],
-    filteredCountriesByActivities:[]
+    filteredCountriesByActivities:[],
+    order:''
 }
 
 const rootReducer = (state = initialState, action)=>{
     switch (action.type){
         case RESET_COUNTRIES: return{
             ...state,
-            countries: state.countriesReset,
+            countries: state.countriesCache,
         }
         
         case GET_ALL_COUNTRIES: return{
             ...state,
             countries: action.payload,
-            countriesCache: action.payload,
-            countriesReset:action.payload
+            countriesCache: action.payload
         };
         case GET_COUNTRY_BY_NAME: return{
             ...state,
@@ -61,14 +61,14 @@ const rootReducer = (state = initialState, action)=>{
                 return{
                     ...state,
                     countries: auxStateAZ,
-                    countriesCache: auxStateAZ
+                    order:'A-Z'
                 }
             }
             let auxStateAZReverse = auxStateAZ.reverse();
             return {
                 ...state,
                 countries: auxStateAZReverse,
-                countriesCache: auxStateAZReverse
+                order:'Z-A'
             }
 
         case ORDER_COUNTRIES_POPULATION: 
@@ -84,14 +84,14 @@ const rootReducer = (state = initialState, action)=>{
                 return{
                     ...state,
                     countries: auxStatePopulation,
-                    countriesCache: auxStatePopulation
+                    order:'Descending'
                 }
             }
             let auxStatePopulationReverse = auxStatePopulation.reverse();
             return {
                 ...state,
                 countries: auxStatePopulationReverse,
-                countriesCache: auxStatePopulationReverse
+                order:'Ascending'
             }
         
         case FILTER_COUNTRIES_CONTINENT:
@@ -100,6 +100,11 @@ const rootReducer = (state = initialState, action)=>{
 
             if (state.filteredCountriesByActivities.length!==0){
                 countriesContinent = [...state.filteredCountriesByActivities]
+            }
+
+            if (state.order !== ''){
+                let aux = functionOrder(countriesContinent,state.order);
+                countriesContinent=aux;
             }
 
             let auxFilterContinent = countriesContinent.filter(country=>country.continent===action.payload);
@@ -116,6 +121,11 @@ const rootReducer = (state = initialState, action)=>{
 
             if (state.filteredCountriesByContinent.length!==0){
                 countriesActivity = [...state.filteredCountriesByContinent]
+            }
+
+            if (state.order !== ''){
+                let aux = functionOrder(countriesActivity,state.order);
+                countriesActivity=aux;
             }
         
             let auxFilterActivity = countriesActivity.filter(country=>{

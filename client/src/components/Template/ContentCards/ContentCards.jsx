@@ -50,6 +50,9 @@ export default function ContentCards(){
         />))}
       </div>
 
+      {!countries.length && 
+        <p className={style.pError}>No matches found, please press the Reset button</p>}
+
       <div className={style.pagContainer}>
         {pag>1 &&<Button style={style.button} onClick={handlePrevPage} keyValue='<' text='<'/>}
         <p className={style.p}>{maxPag===0 ? 0:pag}/{maxPag}</p>
