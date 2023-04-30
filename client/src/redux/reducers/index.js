@@ -15,19 +15,23 @@ const initialState= {
     countryDetail:{},
     activities:[],
     countriesCache:[],
+    countriesReset:[],
+    filteredCountriesByContinent:[],
+    filteredCountriesByActivities:[]
 }
 
 const rootReducer = (state = initialState, action)=>{
     switch (action.type){
         case RESET_COUNTRIES: return{
             ...state,
-            countries: state.countriesCache
+            countries: state.countriesReset,
         }
         
         case GET_ALL_COUNTRIES: return{
             ...state,
             countries: action.payload,
-            countriesCache: action.payload
+            countriesCache: action.payload,
+            countriesReset:action.payload
         };
         case GET_COUNTRY_BY_NAME: return{
             ...state,
@@ -56,13 +60,15 @@ const rootReducer = (state = initialState, action)=>{
             if (action.payload==="A-Z"){
                 return{
                     ...state,
-                    countries: auxStateAZ
+                    countries: auxStateAZ,
+                    countriesCache: auxStateAZ
                 }
             }
             let auxStateAZReverse = auxStateAZ.reverse();
             return {
                 ...state,
-                countries: auxStateAZReverse
+                countries: auxStateAZReverse,
+                countriesCache: auxStateAZReverse
             }
 
         case ORDER_COUNTRIES_POPULATION: 
@@ -77,41 +83,56 @@ const rootReducer = (state = initialState, action)=>{
             if (action.payload==="Descending"){
                 return{
                     ...state,
-                    countries: auxStatePopulation
+                    countries: auxStatePopulation,
+                    countriesCache: auxStatePopulation
                 }
             }
             let auxStatePopulationReverse = auxStatePopulation.reverse();
             return {
                 ...state,
-                countries: auxStatePopulationReverse
+                countries: auxStatePopulationReverse,
+                countriesCache: auxStatePopulationReverse
             }
         
         case FILTER_COUNTRIES_CONTINENT:
-        let continent = [...state.countriesCache]
-        //let auxFilterContinent=[...state.countries.filter(country=>country.continent===action.payload)]
 
-        let result = continent.slice().filter(country=> country.continent && country.continent.includes(action.payload))
-        return {
-            ...state,
-            countries:result
-        }
+            let countriesContinent = [...state.countriesCache];
+
+            if (state.filteredCountriesByActivities.length!==0){
+                countriesContinent = [...state.filteredCountriesByActivities]
+            }
+
+            let auxFilterContinent = countriesContinent.filter(country=>country.continent===action.payload);
+
+            return {
+                ...state,
+                countries:auxFilterContinent,
+                filteredCountriesByContinent: auxFilterContinent
+            }
 
         case FILTER_COUNTRIES_ACTIVITIES:
-        
-        let auxFilterActivity=[...state.countriesCache.slice().filter(country=>{
-            let hasActivity = false;
-            for (const activity of country.activities) {
-                if (activity.name===action.payload){
-                    hasActivity = true;
-                }
+
+            let countriesActivity = [...state.countriesCache];
+
+            if (state.filteredCountriesByContinent.length!==0){
+                countriesActivity = [...state.filteredCountriesByContinent]
             }
-            return hasActivity;
-        })]
         
-        return {
-            ...state,
-            countries: auxFilterActivity
-        }
+            let auxFilterActivity = countriesActivity.filter(country=>{
+                let hasActivity = false;
+                for (const activity of country.activities) {
+                    if (activity.name===action.payload){
+                        hasActivity = true;
+                    }
+                }
+                return hasActivity;
+            })
+            
+            return {
+                ...state,
+                countries: auxFilterActivity,
+                filteredCountriesByActivities:auxFilterActivity
+            }
         default: return state;
     }
 };

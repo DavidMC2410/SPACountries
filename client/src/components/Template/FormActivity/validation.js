@@ -4,7 +4,7 @@ export default function validation (input, inputName, stateError){
 
     switch (inputName) {
         case "name":
-            errors.name = !input.name ? 'The activity must have a name.':null;
+            errors.name = ((input.name.length<3)||(input.name.length>32)) ? 'The name of the activity must be between 3 and 32 characters.':null;
             break;
 
         case "difficulty":

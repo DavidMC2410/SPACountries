@@ -52,7 +52,7 @@ export default function ContentCards(){
 
       <div className={style.pagContainer}>
         {pag>1 &&<Button style={style.button} onClick={handlePrevPage} keyValue='<' text='<'/>}
-        <p className={style.p}>{pag}/{maxPag}</p>
+        <p className={style.p}>{maxPag===0 ? 0:pag}/{maxPag}</p>
         {pag!==maxPag &&<Button style={style.button} onClick={handleNextPage} keyValue='>' text='>' />}
       </div>
 

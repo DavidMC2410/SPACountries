@@ -18,7 +18,6 @@ export default function FormActivity(){
         dispatch(getAllCountries());
     },[])
 
-    let arrayCountries=[];
     const seasons = ['Spring', 'Summer', 'Autumn', 'Winter'];
     let countries = useSelector(state => state.countries);
     let countriesName = countries.map(country=> country.name)
@@ -42,6 +41,7 @@ export default function FormActivity(){
     const handleInputChange = (e)=>{
         
         const {name, value}=e.target
+        console.log(value);
         const newForm = {...form, [name] : value}
         setErrors(validation(newForm, name, errors))
         setForm(newForm);
@@ -53,16 +53,16 @@ export default function FormActivity(){
     }
 
     function handleSelectCountriesChange(event) {
-        //const selectedValues = Array.from(event.target.selectedOptions, option => option.value);
-        const selectedValues=[...arrayCountries, event.target.value]
-        console.log(event.target.value);
-        const filterCountry = form.countries.find(country=>country===selectedValues[0]);
-        if (filterCountry===undefined){
-            setForm({...form, countries: [...form.countries, selectedValues[0]]});
-        }else{
-            setForm({...form, countries: form.countries.filter(c=>c!==selectedValues[0])});
-        }
+
+        setForm({...form, countries: [...form.countries, event.target.value]});        
+  
       }
+
+    function handleDeleteCountry(event) {
+        
+        setForm({...form, countries: form.countries.filter(c=>c!==event.target.value)});
+
+    }
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -106,7 +106,8 @@ export default function FormActivity(){
                 <div className={style.sectionContainer}>
                     <Label style={style.label} htmlFor='countries' text='Country(ies): '/>
                     <Select style={style.select} id='countries' arrayOptions={countriesName} select={handleSelectCountriesChange} size="1"  multiple={false}/>
-                    <p>Selected options: {form.countries.join(', ')}</p>
+                    <p>Selected options: (Click to delete)</p>
+                    <Select style={style.select} id='deleteCountry' arrayOptions={form.countries} select={handleDeleteCountry} size="1"  multiple={false}/>
                 </div>
             </div>
 
