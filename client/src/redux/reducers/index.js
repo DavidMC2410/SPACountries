@@ -26,6 +26,9 @@ const rootReducer = (state = initialState, action)=>{
         case RESET_COUNTRIES: return{
             ...state,
             countries: state.countriesCache,
+            filteredCountriesByContinent:[],
+            filteredCountriesByActivities:[],
+            order:''
         }
         
         case GET_ALL_COUNTRIES: return{

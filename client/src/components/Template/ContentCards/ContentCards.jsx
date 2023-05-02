@@ -23,8 +23,11 @@ export default function ContentCards(){
 
   let countries = allCountries.slice(firstCard,lastCard)
 
-    
   const maxPag=Math.ceil(allCountries.length/10);
+
+  useEffect(()=>{
+    setPag(1);
+  },[allCountries])
 
   const handlePrevPage = () => {
     if (pag > 1) {
@@ -51,7 +54,7 @@ export default function ContentCards(){
       </div>
 
       {!countries.length && 
-        <p className={style.pError}>No matches found, please press the Reset button</p>}
+        <p className={style.pError}>No matches found, please press the <strong>Reset</strong> button</p>}
 
       <div className={style.pagContainer}>
         {pag>1 &&<Button style={style.button} onClick={handlePrevPage} keyValue='<' text='<'/>}
