@@ -1,5 +1,6 @@
 export default function validation (input, inputName, stateError){
 
+
     let errors = {...stateError}
 
     switch (inputName) {
@@ -14,7 +15,13 @@ export default function validation (input, inputName, stateError){
         case "duration":
             errors.duration = ((input.duration > 6)||(input.duration <= 0)) ? 'The activity cannot last more than 6 hours.':null;
             break;
-    
+
+        case "season":
+            errors.season =(input.season==='')?'Please select a season.':null;
+            break;
+        case "countries":
+            errors.countries = ((input.countries.length===0))?'The minimum selection is one country.':null;
+            break;
         default:
             break;
     }
